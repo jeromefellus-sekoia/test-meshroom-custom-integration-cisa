@@ -352,6 +352,8 @@ class SekoiaAPI(Session):
 
         # TODO: notebooks API currently requires a real avatar identity, so we can't use it for now with an API key
 
+        print(self.api_key)
+
         print(f"Run playbook action {action_uuid} with arguments ({data})")
         payload = {
             "account_uuid": None,
