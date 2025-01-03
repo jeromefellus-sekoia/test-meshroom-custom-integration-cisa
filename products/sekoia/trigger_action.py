@@ -7,6 +7,7 @@ def trigger_action(tenant: Tenant, integration: Integration, action: str | None 
     """Trigger a Sekoia.io playbook action, given its UUID or name"""
     from .api import SekoiaAPI
 
+    print(tenant)
     print(tenant.get_secret("API_KEY"))
 
     api = SekoiaAPI(
