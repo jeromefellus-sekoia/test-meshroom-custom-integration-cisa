@@ -1,0 +1,8 @@
+dst_tenant: sekoia
+format: json
+mode: push
+settings:
+  intake_uuid: f256e844-702b-4d0e-aa7c-dfe387ede493
+src_tenant: myproduct
+status: up
+topic: events

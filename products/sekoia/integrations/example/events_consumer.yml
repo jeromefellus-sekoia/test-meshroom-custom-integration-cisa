@@ -1,0 +1,6 @@
+intake_format_uuid: a8ffa1a6-34df-4ea7-9573-0cdd8562cb20
+intake_formats_fork_url: git@github.com:jeromefellus-sekoia/intake-format-example.git
+product: sekoia
+role: consumer
+target_product: example
+topic: events

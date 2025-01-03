@@ -1,0 +1,5 @@
+intake_format_uuid: 8bd2c0a8-64f7-4c5d-a0a1-8d6152917403
+product: sekoia
+role: consumer
+target_product: myproduct
+topic: events

@@ -1,0 +1,4 @@
+dst_tenant: cisa_gov
+mode: push
+src_tenant: sekoia
+topic: action
