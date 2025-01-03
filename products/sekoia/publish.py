@@ -32,7 +32,7 @@ def publish_intake_format(integration: Integration):
     path = integration.path.parent / "dist" / "formats" / name
     tmp_path = integration.path.parent / "dist" / f"tmp-{uuid4()}"
 
-    # Clone intake-formats' main branch to tmp_path pointing to our project's remote
+    # Clone the fork to tmp_path and create a new branch
     Git(tmp_path).pull(fork_url)
     Git(tmp_path).create_branch(f"intake-format-{name}")
 
@@ -90,7 +90,7 @@ def publish_automation_connector(integration: Integration):
     path = integration.path.parent / "dist" / "formats" / name
     tmp_path = integration.path.parent / "dist" / f"tmp-{uuid4()}"
 
-    # Clone intake-formats' main branch to tmp_path pointing to our project's remote
+    # Clone the fork to tmp_path and create a new branch
     Git(tmp_path).pull(fork_url)
     Git(tmp_path).create_branch(f"connector-{name}")
 
@@ -104,6 +104,53 @@ def publish_automation_connector(integration: Integration):
     # Push the changes to the remote branch
     Git(tmp_path).add(".")
     Git(tmp_path).commit(f"Publish {name} connector")
+    Git(tmp_path).push(False, remote="origin", force=True)
+
+    # Propose to create a PR from the fork to SEKOIA-IO/automation-library
+    pr_source = Git(tmp_path).get_remote().split(":")[-1].split(".git")[0].split("/")[0]
+    interaction.box(
+        "Open a browser to",
+        f"{REPO}/compare/main...{pr_source}/{Git(tmp_path).get_branch()}?expand=1",
+        "To create a PR to SEKOIA-IO/automation-library",
+    )
+
+    # Clean up tmp_path
+    shutil.rmtree(tmp_path)
+
+
+@publish(role="trigger", topic="action")
+def publish_automation_action(integration: Integration):
+    """Publish an automation action as a PR to Sekoia.io's https://github.com/SEKOIA-IO/automation-library"""
+    from meshroom.git import Git
+    from meshroom import interaction
+
+    REPO = "https://github.com/SEKOIA-IO/automation-library"
+
+    name = integration.target_product
+
+    # Prompt the user to provide a github fork URL if not already set
+    fork_url = integration.get_or_prompt(
+        "automation_library_fork_url",
+        f"Please provide a github.com fork URL of {REPO}\n(open a browser to {REPO}/fork to create one)",
+    )
+
+    path = integration.path.parent / "dist" / "formats" / name
+    tmp_path = integration.path.parent / "dist" / f"tmp-{uuid4()}"
+
+    # Clone the fork to tmp_path and create a new branch
+    Git(tmp_path).pull(fork_url)
+    Git(tmp_path).create_branch(f"connector-{name}")
+
+    # Copy connector files
+    shutil.copytree(path, tmp_path / name)
+
+    # Remove unrelated files
+    for f in ("_meta", "ingest"):
+        shutil.rmtree(tmp_path / name / f, ignore_errors=True)
+
+    # Push the changes to the remote branch
+    Git(tmp_path).add(".")
+    Git(tmp_path).commit(f"Publish {name} action")
     Git(tmp_path).push(False, remote="origin", force=True)
 
     # Propose to create a PR from the fork to SEKOIA-IO/automation-library

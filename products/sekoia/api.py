@@ -343,7 +343,8 @@ class SekoiaAPI(Session):
 
     def get_community_uuid(self):
         """Return the community UUID of the current user"""
-        print(self.get("/v1/me").text)
+        print("youpla")
+        print(self.get("v1/me").text)
         return self.get("/v1/me").json()["community"]
 
     def trigger_action(self, module_uuid: str, action_uuid: str, data: dict | None = None):
@@ -357,7 +358,7 @@ class SekoiaAPI(Session):
             "notebook_uuid": None,
             "action_uuid": action_uuid,
             "slug": f"playbook_action_{time()}",
-            # "community_uuid": self.get_community_uuid(),
+            "community_uuid": self.get_community_uuid(),
         }
         if data:
             payload["arguments"] = data
