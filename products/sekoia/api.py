@@ -343,9 +343,6 @@ class SekoiaAPI(Session):
 
     def get_community_uuid(self):
         """Return the community UUID of the current user"""
-        print("youpla")
-        print(self.api_key)
-        print(self.get("/v1/me").text)
         return self.get("/v1/me").json()["community"]
 
     def trigger_action(self, module_uuid: str, action_uuid: str, data: dict | None = None):
