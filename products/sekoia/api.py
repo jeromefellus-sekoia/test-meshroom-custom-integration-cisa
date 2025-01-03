@@ -344,6 +344,7 @@ class SekoiaAPI(Session):
     def get_community_uuid(self):
         """Return the community UUID of the current user"""
         print("youpla")
+        print(self.api_key)
         print(self.get("/v1/me").text)
         return self.get("/v1/me").json()["community"]
 
@@ -351,8 +352,6 @@ class SekoiaAPI(Session):
         """Trigger a playbook action"""
 
         # TODO: notebooks API currently requires a real avatar identity, so we can't use it for now with an API key
-
-        print(self.api_key)
 
         print(f"Run playbook action {action_uuid} with arguments ({data})")
         payload = {
