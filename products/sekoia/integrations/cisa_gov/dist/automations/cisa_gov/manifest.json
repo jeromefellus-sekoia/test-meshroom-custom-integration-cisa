@@ -1,0 +1,14 @@
+{
+    "configuration": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "cisa_gov",
+        "type": "object",
+        "properties": {},
+        "required": []
+    },
+    "description": "cisa_gov",
+    "name": "cisa_gov",
+    "uuid": "1b2cbdea-5c31-41e4-ab94-2e9d23ecb0b6",
+    "slug": "cisa_gov",
+    "version": "0.1.0"
+}

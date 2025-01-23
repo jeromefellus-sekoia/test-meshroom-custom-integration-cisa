@@ -1,0 +1,6 @@
+automation_action_uuid: 1b2cbdea-5c31-41e4-ab94-2e9d23ecb0b6
+automation_module_uuid: 1b2cbdea-5c31-41e4-ab94-2e9d23ecb0b6
+product: sekoia
+role: trigger
+target_product: cisa_gov
+topic: action
