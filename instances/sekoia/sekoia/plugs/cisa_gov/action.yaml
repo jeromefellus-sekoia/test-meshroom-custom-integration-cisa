@@ -1,0 +1,5 @@
+dst_instance: cisa_gov
+kind: trigger
+mode: push
+src_instance: sekoia
+topic: action
